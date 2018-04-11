@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-     <el-button @click="tanchu" type="success"  v-if="$route.params.id==1">+</el-button> 
+     <el-button @click="tanchu" type="success"  v-if="$route.params.id==2">+</el-button> 
    <el-dialog title="新增" :visible.sync="dialogFormVisible">
   <el-form :model="form">
     <el-form-item label="姓名" :label-width="formLabelWidth">
@@ -20,7 +20,6 @@
   </div>
 </el-dialog>
 
-   
  <el-table
       :data="tableData"
       style="width: 100%">
@@ -45,13 +44,15 @@
       width="400">
       <template slot-scope="scope">
         <el-button @click="handleClick(scope.row,1)" type="danger" size="small">删除</el-button>
-        <el-button type="info" size="small" @click="gaiChick(scope.row,$event.currentTarget.id)" id='2'>升班</el-button>
-        <el-button type="info" size="small" @click="gaiChick(scope.row,$event.currentTarget.id)" id='3'>末班</el-button>
+        <el-button type="info" size="small" @click="gaiChick(scope.row,$event.currentTarget.id)" id='3'>升班</el-button>
+        <el-button type="info" size="small" @click="gaiChick(scope.row,$event.currentTarget.id)" id='4'>末班</el-button>
       </template>
     </el-table-column>
     </el-table>
     
+    
     </div>
+
 </template>
 <script>
 export default {
@@ -61,6 +62,7 @@ export default {
         dialogTableVisible: false,
         dialogFormVisible: false,
         form: {},
+        AA:false,
         formLabelWidth: '120px'
         }
     },
@@ -99,6 +101,16 @@ export default {
    
 
     watch:{
+       'form.name'(){
+            var number = /^[u4e00-u9fa5]+$/
+            // console.log(number.test(this.form.name))
+            var zifu = number.test(this.form.name)
+            if(zifu == true){
+              this.AA = true
+            }else{
+              this.AA = false
+            }
+        },
      '$route'(){
       this.abc()
      }
